@@ -1,0 +1,12 @@
+transaction_id,transaction_date,merchant_id,amount_usd_ledger,amount_usd_gateway,amount_match,status_ledger,status_gateway,status_match,presence,recon_status
+R001,2026-03-01,M001,1200.0,1200.0,True,success,success,True,both,matched
+R002,2026-03-01,M002,850.0,900.0,False,success,success,True,both,amount_mismatch
+R003,2026-03-02,M001,500.0,500.0,True,success,success,True,both,matched
+R004,2026-03-02,M003,2100.0,,False,success,,False,missing_in_gateway,missing_in_gateway
+R005,2026-03-03,M004,7200.0,7200.0,True,success,failed,False,both,status_mismatch
+R006,2026-03-03,M002,950.0,950.0,True,success,success,True,both,matched
+R007,2026-03-04,M005,3300.0,3300.0,True,failed,failed,True,both,matched
+R008,2026-03-04,M001,640.0,600.0,False,success,success,True,both,amount_mismatch
+R009,2026-03-05,M002,4100.0,4100.0,True,success,success,True,both,matched
+R010,2026-03-05,M004,2500.0,,False,success,,False,missing_in_gateway,missing_in_gateway
+R011,2026-03-05,M003,,1800.0,False,,success,False,missing_in_ledger,missing_in_ledger
