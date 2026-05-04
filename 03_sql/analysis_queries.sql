@@ -1,10 +1,9 @@
 -- Analysis Queries for Cleaned Transactions
 
---Query 1: Count of transactions by status
+-- Q1
 select status, count(*) as transaction_count from merchant_risk_summary group by status;
 
-
---Query 2: Total GMV (Gross Merchandise Value) captured by each merchant
+-- Q2
 SELECT 
     merchant_id,
     merchant_name,
@@ -13,8 +12,7 @@ FROM merchant_risk_summary
 WHERE status = 'CAPTURED'
 GROUP BY merchant_id, merchant_name;
 
-
---Query 3: Top 10 merchants by captured GMV
+-- Q3
 SELECT 
     merchant_id,
     merchant_name,
@@ -25,8 +23,7 @@ GROUP BY merchant_id, merchant_name
 ORDER BY total_captured_gmv DESC
 LIMIT 10;
 
-
--- Query 4: Daily GMV and count of successful transactions
+-- Q4
 SELECT 
     transaction_date,
     SUM(amount_usd) AS daily_gmv,
@@ -36,8 +33,7 @@ WHERE status = 'CAPTURED'
 GROUP BY transaction_date
 ORDER BY transaction_date;
 
-
--- Query 5: Chargeback ratio for each merchant
+-- Q5
 SELECT 
     merchant_id,
     merchant_name,
@@ -49,8 +45,7 @@ HAVING
     COUNT(CASE WHEN status = 'CHARGEBACK' THEN 1 END) * 1.0 
         / COUNT(*) > 0.01;
 
-
--- Query 6: Average risk score by gateway region for transactions with sufficient data
+-- Q6
 SELECT 
     gateway_region,
     COUNT(*) AS total_transactions,
@@ -62,8 +57,7 @@ HAVING
     COUNT(*) > 20
     AND AVG(risk_score) > 50;
 
-
--- Query 7: Users with multiple risky transactions
+-- Q7
 SELECT 
     user_id,
     transaction_date,
@@ -74,8 +68,7 @@ GROUP BY user_id, transaction_date
 HAVING COUNT(*) >= 3;
 
 
-
--- Query 8: Merchants with the highest chargeback amounts
+-- Q8
 SELECT 
     merchant_id,
     merchant_name,
