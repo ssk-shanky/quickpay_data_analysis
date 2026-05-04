@@ -1,6 +1,17 @@
+# SQL Answers
+
 All results computed from `01_data/processed/merchant_risk_summary.csv`.
 
-**Query 1: Count of transactions by status**
+## Q1
+### Query
+```sql
+SELECT status,
+		 COUNT(*) AS transaction_count
+FROM merchant_risk_summary
+GROUP BY status
+ORDER BY transaction_count DESC;
+```
+### Result Summary
 ```text
 status | transaction_count
 CAPTURED | 19
@@ -8,8 +19,18 @@ FAILED E05 TIMEOUT | 7
 CHARGEBACK | 4
 ```
 
-**Query 2: Total GMV (Gross Merchandise Value) captured by each merchant**
-(status = 'CAPTURED')
+## Q2
+### Query
+```sql
+SELECT merchant_id,
+		 merchant_name,
+		 SUM(amount) AS total_captured_gmv
+FROM merchant_risk_summary
+WHERE status = 'CAPTURED'
+GROUP BY merchant_id, merchant_name
+ORDER BY total_captured_gmv DESC;
+```
+### Result Summary
 ```text
 merchant_id | merchant_name | total_captured_gmv
 M001 | ALPHA MART | 29984.5
@@ -18,8 +39,19 @@ M003 | CITY PHARMA | 8640
 M004 | DELTA TRAVELS | 10300
 ```
 
-**Query 3: Top 10 merchants by captured GMV**
-(ordered by `total_captured_gmv` DESC)
+## Q3
+### Query
+```sql
+SELECT merchant_id,
+		 merchant_name,
+		 SUM(amount) AS total_captured_gmv
+FROM merchant_risk_summary
+WHERE status = 'CAPTURED'
+GROUP BY merchant_id, merchant_name
+ORDER BY total_captured_gmv DESC
+LIMIT 10;
+```
+### Result Summary
 ```text
 merchant_id | merchant_name | total_captured_gmv
 M002 | BETA STORES | 33431
@@ -28,8 +60,18 @@ M004 | DELTA TRAVELS | 10300
 M003 | CITY PHARMA | 8640
 ```
 
-**Query 4: Daily GMV and count of successful transactions**
-(status = 'CAPTURED', ordered by `transaction_date`)
+## Q4
+### Query
+```sql
+SELECT DATE(transaction_date) AS transaction_date,
+		 SUM(amount) AS daily_gmv,
+		 COUNT(*) AS successful_transactions
+FROM merchant_risk_summary
+WHERE status = 'CAPTURED'
+GROUP BY DATE(transaction_date)
+ORDER BY transaction_date;
+```
+### Result Summary
 ```text
 transaction_date | daily_gmv | successful_transactions
 01-03-2026 | 26382 | 5
@@ -40,8 +82,18 @@ transaction_date | daily_gmv | successful_transactions
 06-03-2026 | 8806 | 2
 ```
 
-**Query 5: Chargeback ratio for each merchant**
-(only rows with `chargeback_ratio` > 0.01)
+## Q5
+### Query
+```sql
+SELECT merchant_id,
+		 merchant_name,
+		 SUM(CASE WHEN status = 'CHARGEBACK' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) AS chargeback_ratio
+FROM merchant_risk_summary
+GROUP BY merchant_id, merchant_name
+HAVING SUM(CASE WHEN status = 'CHARGEBACK' THEN 1 ELSE 0 END) * 1.0 / COUNT(*) > 0.01
+ORDER BY chargeback_ratio DESC;
+```
+### Result Summary
 ```text
 merchant_id | merchant_name | chargeback_ratio
 M001 | ALPHA MART | 0.09090909090909091
@@ -50,22 +102,56 @@ M004 | DELTA TRAVELS | 0.25
 M005 | ECO HOME | 0.5
 ```
 
-**Query 6: Average risk score by gateway_region**
-(WHERE `gateway_region` != 'MISSING' HAVING `COUNT(*)` > 20 AND `AVG(risk_score)` > 50)
+## Q6
+### Query
+```sql
+SELECT gateway_region,
+		 COUNT(*) AS total_transactions,
+		 AVG(risk_score) AS avg_risk_score
+FROM merchant_risk_summary
+WHERE gateway_region != 'MISSING'
+GROUP BY gateway_region
+HAVING COUNT(*) > 20
+	AND AVG(risk_score) > 50;
+```
+### Result Summary
 ```text
 gateway_region | total_transactions | avg_risk_score
 (0 rows)
 ```
 
-**Query 7: Users with multiple risky transactions**
-(status IN ('FAILED E05 TIMEOUT','CHARGEBACK'), HAVING `COUNT(*)` >= 3)
+## Q7
+### Query
+```sql
+SELECT user_id,
+		 DATE(transaction_date) AS transaction_date,
+		 COUNT(*) AS risky_txn_count
+FROM merchant_risk_summary
+WHERE status IN ('FAILED E05 TIMEOUT','CHARGEBACK')
+GROUP BY user_id, DATE(transaction_date)
+HAVING COUNT(*) >= 3
+ORDER BY risky_txn_count DESC;
+```
+### Result Summary
 ```text
 user_id | transaction_date | risky_txn_count
 U008 | 05-03-2026 | 4
 ```
 
-**Query 8: Merchants with the highest chargeback amounts**
-(status = 'CHARGEBACK')
+## Q8
+### Query
+```sql
+SELECT merchant_id,
+		 merchant_name,
+		 COUNT(*) AS chargeback_count,
+		 COUNT(DISTINCT user_id) AS affected_users,
+		 SUM(amount) AS chargeback_amount
+FROM merchant_risk_summary
+WHERE status = 'CHARGEBACK'
+GROUP BY merchant_id, merchant_name
+ORDER BY chargeback_amount DESC;
+```
+### Result Summary
 ```text
 merchant_id | merchant_name | chargeback_count | affected_users | chargeback_amount
 M001 | ALPHA MART | 1 | 1 | 5400
