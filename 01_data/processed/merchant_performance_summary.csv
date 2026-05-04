@@ -1,0 +1,6 @@
+merchant_id,transactions_count,total_amount_ledger,total_amount_gateway,matched_count,amount_mismatches_count,status_mismatches_count,merchant_name,matched_rate,amount_mismatch_rate,status_mismatch_rate
+M001,3,2340.0,2300.0,2,1,0,Alpha Mart,0.6666666666666666,0.3333333333333333,0.0
+M002,3,5900.0,5950.0,2,1,0,Beta Stores,0.6666666666666666,0.3333333333333333,0.0
+M003,2,2100.0,1800.0,0,2,2,City Pharma,0.0,1.0,1.0
+M004,2,9700.0,7200.0,0,1,2,Delta Travels,0.0,0.5,1.0
+M005,1,3300.0,3300.0,1,0,0,Eco Home,1.0,0.0,0.0

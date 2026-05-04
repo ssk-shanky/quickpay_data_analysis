@@ -1,0 +1,4 @@
+merchant_region,transactions_count,total_amount_ledger,total_amount_gateway,transactions_share
+APAC,6,8240.0,8250.0,0.5454545454545454
+EU,3,5400.0,5100.0,0.2727272727272727
+US,2,9700.0,7200.0,0.18181818181818182

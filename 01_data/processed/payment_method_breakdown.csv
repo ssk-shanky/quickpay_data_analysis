@@ -1,0 +1,5 @@
+payment_method,transactions_count,total_amount_ledger,total_amount_gateway,transactions_share
+Card,6,14890.0,14600.0,0.5454545454545454
+NetBanking,1,3300.0,3300.0,0.09090909090909091
+UPI,2,2150.0,2150.0,0.18181818181818182
+Wallet,2,3000.0,500.0,0.18181818181818182

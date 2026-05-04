@@ -1,0 +1,6 @@
+date,transactions_count,total_amount_ledger,total_amount_gateway,matched_count,amount_mismatches_count,status_mismatches_count,missing_in_gateway_count,missing_in_ledger_count
+2026-03-01,2,2050.0,2100.0,1,1,0,0,0
+2026-03-02,2,2600.0,500.0,1,1,1,1,0
+2026-03-03,2,8150.0,8150.0,1,0,1,0,0
+2026-03-04,2,3940.0,3900.0,1,1,0,0,0
+2026-03-05,3,6600.0,5900.0,1,2,2,1,1
