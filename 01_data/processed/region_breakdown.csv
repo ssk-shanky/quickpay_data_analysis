@@ -1,4 +1,5 @@
-merchant_region,transactions_count,total_amount_ledger,total_amount_gateway,transactions_share
-APAC,6,8240.0,8250.0,0.5454545454545454
-EU,3,5400.0,5100.0,0.2727272727272727
-US,2,9700.0,7200.0,0.18181818181818182
+gateway_region,transactions_count,total_amount_usd,avg_risk_score,high_risk_count,chargeback_count
+APAC,13,50177.5,67.53846153846153,6,2
+MISSING,9,32416.5,62.125,1,0
+EU,4,18886.0,47.25,1,1
+US,4,14600.0,48.75,1,1

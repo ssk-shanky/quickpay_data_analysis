@@ -1,6 +1,6 @@
-merchant_id,transactions_count,total_amount_ledger,total_amount_gateway,matched_count,amount_mismatches_count,status_mismatches_count,merchant_name,matched_rate,amount_mismatch_rate,status_mismatch_rate
-M001,3,2340.0,2300.0,2,1,0,Alpha Mart,0.6666666666666666,0.3333333333333333,0.0
-M002,3,5900.0,5950.0,2,1,0,Beta Stores,0.6666666666666666,0.3333333333333333,0.0
-M003,2,2100.0,1800.0,0,2,2,City Pharma,0.0,1.0,1.0
-M004,2,9700.0,7200.0,0,1,2,Delta Travels,0.0,0.5,1.0
-M005,1,3300.0,3300.0,1,0,0,Eco Home,1.0,0.0,0.0
+merchant_id,merchant_name,transactions_count,total_amount_usd,avg_risk_score,chargeback_count,high_risk_count,high_value_count,chargeback_rate
+M002,BETA STORES,11,41782.0,69.36363636363636,1,5,2,0.09090909090909091
+M001,ALPHA MART,11,40812.0,61.2,1,2,2,0.09090909090909091
+M004,DELTA TRAVELS,4,14600.0,48.75,1,1,1,0.25
+M005,ECO HOME,2,10246.0,54.5,1,1,1,0.5
+M003,CITY PHARMA,2,8640.0,40.0,0,0,0,0.0

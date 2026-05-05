@@ -1,5 +1,5 @@
-payment_method,transactions_count,total_amount_ledger,total_amount_gateway,transactions_share
-Card,6,14890.0,14600.0,0.5454545454545454
-NetBanking,1,3300.0,3300.0,0.09090909090909091
-UPI,2,2150.0,2150.0,0.18181818181818182
-Wallet,2,3000.0,500.0,0.18181818181818182
+payment_method,transactions_count,total_amount_usd,avg_risk_score,high_risk_count,chargeback_count
+Card,13,52972.0,61.30769230769231,4,2
+UPI,9,34397.5,62.625,2,1
+NetBanking,3,15306.0,62.666666666666664,2,0
+Wallet,5,13404.5,54.6,1,1
